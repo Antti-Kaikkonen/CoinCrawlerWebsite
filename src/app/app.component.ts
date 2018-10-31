@@ -28,9 +28,7 @@ export class AppComponent {
 
   initChart() {
     let canvas = <HTMLCanvasElement> this.myChart.nativeElement;
-    //console.log("canvas", canvas);
     var ctx = canvas.getContext('2d');
-    //console.log("ctx", ctx);
     let data = this.twoletter2count.map(obj => obj.value);
     let labels = this.twoletter2count.map(obj => obj.name);
     this.chartData = new Chart(ctx, {
@@ -71,7 +69,6 @@ export class AppComponent {
           enabled: false,
   
           custom: function(tooltipModel) {
-            console.log("tooltipModel", tooltipModel);
             // Tooltip Element
             var tooltipEl = document.getElementById('chartjs-tooltip');
   
@@ -149,7 +146,6 @@ export class AppComponent {
         }
       }
     });
-    console.log("Chart initialized");
   }
 
 
