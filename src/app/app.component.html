@@ -1,3 +1,8 @@
-placeholder<br/>
-<span class="flag-icon flag-icon-us"></span>
+<b>Random</b> data<br/>
+
+<div id="mapContainer" style="width: 700px; height: 475px; position: relative;"></div>
+<div *ngFor="let test of twoletter2count">
+  <span class="flag-icon flag-icon-{{test.key}}"></span> {{test.name}} {{test.value}}
+</div>
+
 <router-outlet></router-outlet>
