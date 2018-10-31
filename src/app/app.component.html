@@ -4,6 +4,9 @@
 <div>
   <canvas #myChart width="400" height="400"></canvas>
 </div>
+<div id="chartjs-tooltip">
+  <table></table>
+</div>
 <div *ngFor="let test of twoletter2count">
   <span class="flag-icon flag-icon-{{test.key}}"></span> {{test.name}} {{test.value}}
 </div>
