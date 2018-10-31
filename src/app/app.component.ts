@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Chart } from 'chart.js';
 import * as d3 from 'd3/d3.min.js';
 import * as Datamap from 'datamaps/dist/datamaps.world.js';
 import * as countries from 'i18n-iso-countries';
@@ -20,8 +21,61 @@ export class AppComponent {
 
   country2count = {}
   twoletter2count = [];
-  ngOnInit() {
 
+  chartData;
+
+  @ViewChild('myChart') myChart: ElementRef;
+
+  initChart() {
+    let canvas = <HTMLCanvasElement> this.myChart.nativeElement;
+    //console.log("canvas", canvas);
+    var ctx = canvas.getContext('2d');
+    //console.log("ctx", ctx);
+    let data = this.twoletter2count.map(obj => obj.value);
+    let labels = this.twoletter2count.map(obj => obj.name);
+    this.chartData = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Nodes by country',
+          data: data,
+          /*backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],*/
+          borderWidth: 1
+        }]
+      },
+      options: {
+        legend: {
+            display: false
+        },
+        responsive: false
+      }
+    });
+    console.log("Chart initialized");
+  }
+
+
+  ngAfterViewInit() {
+    this.initChart();
+  }
+
+  ngOnInit() {
+    //this.initChart();
     this.countrycodes.forEach(countryCode => {
       let numberOfNodes = Math.floor(Math.random()*1000);
       let twoletter = countries.alpha3ToAlpha2(countryCode);
@@ -78,8 +132,7 @@ export class AppComponent {
                     '</div>'];
                 if (data.twoletter) {
                   result.splice(1, 0, '<span class="flag-icon flag-icon-', data.twoletter, '"></span> ');
-                }    
-                console.log(result.join(''));
+                }
                 return result.join('');
             }
         }
