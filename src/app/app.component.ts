@@ -120,8 +120,7 @@ export class AppComponent {
                   let country = components[0].trim();
                   let value = components[1].trim();
                   let countryFlag = '<span class="flag-icon flag-icon-'+countries.getAlpha2Code(country, 'en').toLowerCase()+'"></span>';
-                  let key = "<div>" + countryFlag + " <b>" + country + "</b></div>";
-                  innerHtml += '<tr><td>' + span + key + '<b>' + value + '</b></td></tr>';
+                  innerHtml += '<tr><td>' + span + countryFlag + ' <b>' + country + '</b>' + '<br/> Nodes: <b>' + value + '</b></td></tr>';
               });
               innerHtml += '</tbody>';
   
