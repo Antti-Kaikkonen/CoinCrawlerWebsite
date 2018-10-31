@@ -26,7 +26,8 @@ export class AppComponent {
       let numberOfNodes = Math.floor(Math.random()*1000);
       let twoletter = countries.alpha3ToAlpha2(countryCode);
       this.country2count[countryCode] = {
-        numberOfNodes: numberOfNodes
+        numberOfNodes: numberOfNodes,
+        twoletter: twoletter ? twoletter.toLowerCase() : undefined
       }
       if (twoletter !== undefined) 
         this.twoletter2count.push({
@@ -71,10 +72,15 @@ export class AppComponent {
                 // don't show tooltip if country don't present in dataset
                 if (!data) { return ; }
                 // tooltip content
-                return ['<div class="hoverinfo">',
+                let result = ['<div class="hoverinfo">',
                     '<strong>', geo.properties.name, '</strong>',
                     '<br>Nodes: <strong>', data.numberOfNodes, '</strong>',
-                    '</div>'].join('');
+                    '</div>'];
+                if (data.twoletter) {
+                  result.splice(1, 0, '<span class="flag-icon flag-icon-', data.twoletter, '"></span> ');
+                }    
+                console.log(result.join(''));
+                return result.join('');
             }
         }
     });
